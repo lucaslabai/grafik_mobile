@@ -1,0 +1,154 @@
+﻿<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grafik Iteracyjny</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap&subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="dashboard-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">G</div>
+        <div>
+          <p class="topbar-kicker">Generator grafiku</p>
+          <h1>Grafik Dyżurowy</h1>
+        </div>
+      </div>
+      <p class="topbar-note">Tryb iteracyjny: prośby -> generowanie -> korekta i ponowne generowanie.</p>
+    </header>
+
+    <main class="workspace app">
+      <header class="hero">
+        <span class="hero-chip">Plan miesięczny</span>
+        <h2>Dashboard planowania dyżurów</h2>
+        <p>Pracuj krok po kroku: zdefiniuj zespół, ustaw zapotrzebowanie i wygeneruj gotowy grafik.</p>
+      </header>
+
+      <section class="sidebar-status" aria-label="Status systemu">
+        <p class="status-title">Status systemu</p>
+        <p class="status-value">Aktywny</p>
+      </section>
+
+      <section id="employeesTab" class="panel">
+        <div class="panel-head">
+          <h3>Zespół</h3>
+          <p>Zarządzanie listą pracowników i wymiarem etatu.</p>
+        </div>
+
+        <div class="controls">
+          <button id="addEmployeeBtn" type="button">Dodaj pracownika</button>
+          <button id="saveEmployeesBtn" type="button" class="secondary">Zapisz</button>
+          <span id="employeesSaveStatus" class="save-status"></span>
+        </div>
+
+        <div class="table-wrap">
+          <table id="employeesTable">
+            <thead>
+              <tr>
+                <th>Nr</th>
+                <th>Nazwa pracownika</th>
+                <th>Wymiar</th>
+                <th>Akcje</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="planTab" class="panel hidden">
+        <div class="panel-head">
+          <h3>Zapotrzebowanie</h3>
+          <p>Konfiguracja miesiąca, preferencji i generowania grafiku.</p>
+        </div>
+
+        <div class="controls">
+          <label>Miesiąc
+            <select id="monthInput"></select>
+          </label>
+          <label>Rok
+            <input id="yearInput" type="number" min="2020" max="2100" />
+          </label>
+          <button id="refreshPeopleBtn" type="button" class="secondary">Odśwież osoby</button>
+          <button id="saveDemandBtn" type="button" class="secondary">Zapisz zapotrzebowanie</button>
+          <button id="saveScheduleBtn" type="button" class="secondary">Zapisz grafik</button>
+          <button id="rebuildGridBtn" type="button" class="secondary">Wyczyść siatkę</button>
+          <button id="generateBtn" type="button">Generuj grafik</button>
+          <span id="demandSaveStatus" class="save-status"></span>
+        </div>
+
+        <div class="meta" id="metaBox"></div>
+
+        <div class="table-wrap">
+          <table id="requestTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <p class="legend">W komórce wybierz: puste, <strong>D</strong>, <strong>N</strong>, <strong>U</strong>, <strong>W</strong> (wolne), <strong>bN</strong> (bez nocki), <strong>bD</strong> (bez dniówki).</p>
+      </section>
+
+      <section id="resultTab" class="panel hidden">
+        <div class="panel-head">
+          <h3>Wygenerowany grafik</h3>
+          <p>Podsumowanie, korekty ręczne i eksport.</p>
+        </div>
+
+        <div class="controls">
+          <button id="regenerateBtn" type="button">Generuj ponownie</button>
+          <button id="downloadXlsBtn" type="button" class="secondary">Pobierz XLS</button>
+        </div>
+
+        <div class="summary" id="summary"></div>
+
+        <h2>Widok pracownika</h2>
+        <div class="table-wrap schedule-grid-wrap">
+          <table id="employeeScheduleTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <h2>Widok dnia</h2>
+        <div class="table-wrap">
+          <table id="dayScheduleTable">
+            <thead>
+              <tr>
+                <th>Dzień</th>
+                <th>D</th>
+                <th>N</th>
+                <th>K</th>
+                <th>U</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <nav class="tabs bottom-nav" aria-label="Nawigacja zakładek">
+      <button id="tabEmployeesBtn" class="tab active" type="button">
+        <span class="tab-step">1</span>
+        <span class="tab-label">Pracownicy</span>
+      </button>
+      <button id="tabPlanBtn" class="tab" type="button">
+        <span class="tab-step">2</span>
+        <span class="tab-label">Plan</span>
+      </button>
+      <button id="tabResultBtn" class="tab" type="button">
+        <span class="tab-step">3</span>
+        <span class="tab-label">Wynik</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
